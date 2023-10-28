@@ -26,7 +26,7 @@ public class Allergen {
   private String name;
 
 
-  @ManyToMany
+  @ManyToMany(cascade = CascadeType.MERGE)
   @JoinTable(
     name = "ingredient_allergen",
     joinColumns = @JoinColumn(name = "ingredient_id"),
