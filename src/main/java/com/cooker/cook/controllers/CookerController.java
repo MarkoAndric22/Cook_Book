@@ -39,7 +39,7 @@ public class CookerController {
   public List<CookerResponseDto> getAllCooker(){
     return cookerService.getAllCooker();
   }
-  @RequestMapping(method = RequestMethod.GET,value = "/{cookerId}")
+  @RequestMapping(method = RequestMethod.DELETE,value = "/{cookerId}")
   public CookerResponseDto deleteCooker(@PathVariable Long cookerId) throws NotFoundCustomException {
     return cookerService.deleteCooker(cookerId);
   }
