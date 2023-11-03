@@ -10,17 +10,31 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",
+uses = RecipeMapper.class)
 public interface CookerMapper {
 
 
-    @Mapping(target = "id", ignore = true)
+  @Mappings({
+    @Mapping(target = "id", ignore = true),
+    @Mapping(target = "role",ignore = true)
+  })
   Cooker toEntityCreate(CookerCreateRequestDto cookerCreateRequestDto);
 
-  @Mapping(target = "id", ignore = true)
+  @Mappings({
+    @Mapping(target = "id", ignore = true),
+    @Mapping(target = "role",ignore = true)
+  })
   Cooker toEntityUpdate(CookerUpdateRequestDto cookerCreateRequestDto);
 
+  @Mappings({
+    @Mapping(target = "id", ignore = true)
+  })
   CookerResponseDto toResponseDto(Cooker cooker);
 
+    @Mapping(target = "id", ignore = true)
   List<CookerResponseDto> toResponseListDto(List<Cooker>cookerList);
+
+
+  CookerCreateRequestDto toRequestDto(Cooker cooker);
 }

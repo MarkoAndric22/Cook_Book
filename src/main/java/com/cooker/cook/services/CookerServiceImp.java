@@ -5,9 +5,11 @@ import com.cooker.cook.dtos.cooker.CookerCreateRequestDto;
 import com.cooker.cook.dtos.cooker.CookerResponseDto;
 import com.cooker.cook.dtos.cooker.CookerUpdateRequestDto;
 import com.cooker.cook.entities.Cooker;
+import com.cooker.cook.entities.Role;
 import com.cooker.cook.exceptions.NotFoundCustomException;
 import com.cooker.cook.mappers.CookerMapper;
 import com.cooker.cook.repositories.CookerRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +26,13 @@ public class CookerServiceImp implements CookerService{
 
   @Override
   public CookerResponseDto createCooker(CookerCreateRequestDto cookerCreateRequestDto) {
-    return cookerMapper.toResponseDto(cookerRepository.save(cookerMapper.toEntityCreate(cookerCreateRequestDto)));
+    Cooker cooker = cookerMapper.toEntityCreate(cookerCreateRequestDto);
+    cooker.setRole(Role.COOK);
+    cooker = cookerRepository.save(cooker);
+    return cookerMapper.toResponseDto(cooker);
   }
+
+
 
   @Override
   public CookerResponseDto updateCooker(Long cookerId, CookerUpdateRequestDto cookerUpdateRequestDto) throws NotFoundCustomException {

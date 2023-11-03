@@ -26,12 +26,8 @@ public class Allergen {
   private String name;
 
 
-  @ManyToMany(cascade = CascadeType.MERGE)
-  @JoinTable(
-    name = "ingredient_allergen",
-    joinColumns = @JoinColumn(name = "ingredient_id"),
-    inverseJoinColumns = @JoinColumn(name = "allergen_id")
-  )
+
+  @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
   private List<Ingridient> ingridients;
 
 }

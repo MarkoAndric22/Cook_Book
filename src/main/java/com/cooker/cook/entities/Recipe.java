@@ -41,17 +41,16 @@ public class Recipe {
   @NotNull(message = "quantity must be included.")
   private  Integer quantity;
 
-  @ManyToMany
+  @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
   private List<Cooker> cookers;
 
-  @ManyToMany
+  @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
   private List<RegularUser> regularUsers;
 
-  @ManyToMany
+  @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
   @JoinTable(name = "recipe_ingredient",
     joinColumns = @JoinColumn(name = "recipe"),
-    inverseJoinColumns = @JoinColumn(name = "ingridient")
-  )
+    inverseJoinColumns = @JoinColumn(name = "ingridient"))
   private List<Ingridient> ingridients;
 
 

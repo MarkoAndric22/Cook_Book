@@ -26,7 +26,7 @@ public class CookerController {
     return cookerService.createCooker(cookerCreateRequestDto);
   }
 
-  @RequestMapping(method = RequestMethod.PUT, value = "/update")
+  @RequestMapping(method = RequestMethod.PUT, value = "/{cookerId}")
   public CookerResponseDto updateCooker(@PathVariable Long cookerId, @RequestBody @Valid CookerUpdateRequestDto cookerUpdateRequestDto) throws NotFoundCustomException {
     return cookerService.updateCooker(cookerId,cookerUpdateRequestDto);
   }

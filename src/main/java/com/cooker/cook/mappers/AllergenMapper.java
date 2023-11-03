@@ -24,7 +24,7 @@ public interface AllergenMapper {
   @Mapping(target = "id", ignore = true)
   Allergen toEntityUpdate(AllergenUpdateRequestDto allergenUpdateRequestDTO);
 
-
+  @Mapping(target = "id", ignore = true)
   AllergenResponseDto toResponseDto(Allergen allergen);
 
   @Mappings({

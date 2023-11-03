@@ -29,11 +29,32 @@ public class Ingridient {
   @NotNull(message ="unit of measure must be included")
   private  Integer unitOfMeasure;
 
+  @Column
+  @NotNull(message ="number of calories must be included")
+  private Integer numberCaloria;
 
-  @ManyToMany
+  @Column
+  @NotNull(message ="carbohydrates must be included")
+  private Integer carbohydrates;
+
+  @Column
+  @NotNull(message ="fats must be included")
+  private  Integer fats;
+
+  @Column
+  @NotNull(message ="proteins must be included")
+  private  Integer proteins;
+
+
+  @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+  @JoinTable(
+    name = "ingredient_allergen",
+    joinColumns = @JoinColumn(name = "ingredient_id"),
+    inverseJoinColumns = @JoinColumn(name = "allergen_id")
+
+  )
   private List<Allergen> allergens;
 
-  @OneToOne
-  @JoinColumn(name = "nutrition")
-  private Nutrition nutrition;
+  @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+  List<Recipe> recipes;
 }
