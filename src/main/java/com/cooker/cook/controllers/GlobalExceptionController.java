@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.nio.file.AccessDeniedException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -29,32 +28,25 @@ public class GlobalExceptionController {
       errors = exception.toString();
     }
 
-    return new ResponseEntity(getErrorsMap(errors), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    return new ResponseEntity(getErrorsMap(Collections.singletonList(errors)), new HttpHeaders(), HttpStatus.BAD_REQUEST);
   }
 
   @ExceptionHandler(AuthorizationCustomException.class)
   public ResponseEntity<Map<String, List<String>>> handleAuthorizationCustomException(AuthorizationCustomException ex) {
-    return new ResponseEntity(getErrorsMap(ex.getMessage()), new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+    return new ResponseEntity(getErrorsMap(Collections.singletonList(ex.getMessage())), new HttpHeaders(), HttpStatus.UNAUTHORIZED);
   }
   @ExceptionHandler(BadRequestCustomException.class)
   public ResponseEntity<Map<String, List<String>>> handleBadRequestCustomException(BadRequestCustomException ex) {
-    return new ResponseEntity(getErrorsMap(ex.getMessage()), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    return new ResponseEntity(getErrorsMap(Collections.singletonList(ex.getMessage())), new HttpHeaders(), HttpStatus.BAD_REQUEST);
   }
   @ExceptionHandler(NotFoundCustomException.class)
   public ResponseEntity<Map<String, List<String>>> notFoundCustomException(NotFoundCustomException ex) {
-    return new ResponseEntity(getErrorsMap(ex.getMessage()), new HttpHeaders(), HttpStatus.NOT_FOUND);
+    return new ResponseEntity(getErrorsMap(Collections.singletonList(ex.getMessage())), new HttpHeaders(), HttpStatus.NOT_FOUND);
   }
 
-
-  private Map<String, String> getErrorsMap(String error) {
-    Map<String, String> errorResponse = new HashMap<>();
-    errorResponse.put("errors", error);
+  private Map<String, List<String>> getErrorsMap(List<String> errors) {
+    Map<String, List<String>> errorResponse = new HashMap<>();
+    errorResponse.put("errors", errors);
     return errorResponse;
   }
-
-//  private Map<String, List<String>> getErrorsMap(List<String> errors) {
-//    Map<String, List<String>> errorResponse = new HashMap<>();
-//    errorResponse.put("errors", errors);
-//    return errorResponse;
-//  }
 }
