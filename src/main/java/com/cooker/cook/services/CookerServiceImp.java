@@ -1,18 +1,17 @@
 package com.cooker.cook.services;
 
-import ch.qos.logback.core.joran.conditional.IfAction;
-import com.cooker.cook.dtos.cooker.CookerCreateRequestDto;
-import com.cooker.cook.dtos.cooker.CookerResponseDto;
-import com.cooker.cook.dtos.cooker.CookerUpdateRequestDto;
+import com.cooker.cook.dtos.cooker.*;
 import com.cooker.cook.entities.Cooker;
+import com.cooker.cook.entities.Recipe;
 import com.cooker.cook.entities.Role;
 import com.cooker.cook.exceptions.NotFoundCustomException;
 import com.cooker.cook.mappers.CookerMapper;
 import com.cooker.cook.repositories.CookerRepository;
-import jakarta.transaction.Transactional;
+import com.cooker.cook.repositories.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +22,8 @@ public class CookerServiceImp implements CookerService{
   CookerRepository cookerRepository;
   @Autowired
   CookerMapper cookerMapper;
+  @Autowired
+  RecipeRepository recipeRepository;
 
   @Override
   public CookerResponseDto createCooker(CookerCreateRequestDto cookerCreateRequestDto) {
@@ -46,21 +47,6 @@ public class CookerServiceImp implements CookerService{
   }
 
   @Override
-  public CookerResponseDto getById(Long cookerId) throws NotFoundCustomException {
-    Optional<Cooker>optionalCooker=cookerRepository.findById(cookerId);
-    if (optionalCooker.isEmpty()){
-      throw new NotFoundCustomException("Cooker not found");
-    }
-    return cookerMapper.toResponseDto(optionalCooker.get());
-  }
-
-  @Override
-  public List<CookerResponseDto> getAllCooker() {
-    List<Cooker>cookerList=cookerRepository.findAll();
-    return cookerMapper.toResponseListDto(cookerList);
-  }
-
-  @Override
   public CookerResponseDto deleteCooker(Long cookerId) throws NotFoundCustomException {
     Optional<Cooker>optionalCooker=cookerRepository.findById(cookerId);
     if (optionalCooker.isEmpty()){
@@ -68,5 +54,33 @@ public class CookerServiceImp implements CookerService{
     }
     cookerRepository.delete(optionalCooker.get());
     return cookerMapper.toResponseDto(optionalCooker.get());
+  }
+
+  @Override
+  public CookerRecipeResponseDto createCookerAddRecipe(Long cookerId, List<Long> listRecipeId) {
+
+    Cooker cooker= cookerRepository.findById(cookerId).get();
+    List<Recipe> recipeList= new ArrayList<>();
+    for (Long id : listRecipeId){
+      Recipe recipe=recipeRepository.findById(id).get();
+      recipeList.add(recipe);
+    }
+    cooker.setRecipes(recipeList);
+
+    return cookerMapper.toResponseCookerRecipeDto(cookerRepository.save(cooker));
+  }
+
+  @Override
+  public CookerRecipeResponseDto getByIdCookerAddRecipe(Long id) throws NotFoundCustomException {
+    Optional<Cooker> optionalCooker=cookerRepository.findById(id);
+    if (optionalCooker.isEmpty()){
+      throw new NotFoundCustomException("Cooker not found");
+    }
+    return cookerMapper.toResponseCookerRecipeDto(optionalCooker.get());
+  }
+
+  @Override
+  public List<CookerRecipeResponseDto> getAllCookerAddRecipe() {
+    return cookerMapper.toResponseListCookerRecipeDto(cookerRepository.findAll());
   }
 }

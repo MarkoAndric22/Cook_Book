@@ -1,8 +1,6 @@
 package com.cooker.cook.controllers;
 
-import com.cooker.cook.dtos.cooker.CookerCreateRequestDto;
-import com.cooker.cook.dtos.cooker.CookerResponseDto;
-import com.cooker.cook.dtos.cooker.CookerUpdateRequestDto;
+import com.cooker.cook.dtos.cooker.*;
 import com.cooker.cook.exceptions.NotFoundCustomException;
 import com.cooker.cook.services.CookerService;
 import jakarta.validation.Valid;
@@ -31,16 +29,24 @@ public class CookerController {
     return cookerService.updateCooker(cookerId,cookerUpdateRequestDto);
   }
 
-  @RequestMapping(method =RequestMethod.GET, value = "/{cookerId}")
-  public CookerResponseDto getByIdCooker(@PathVariable Long cookerId) throws NotFoundCustomException {
-    return cookerService.getById(cookerId);
-  }
-  @RequestMapping(method = RequestMethod.GET)
-  public List<CookerResponseDto> getAllCooker(){
-    return cookerService.getAllCooker();
-  }
   @RequestMapping(method = RequestMethod.DELETE,value = "/{cookerId}")
   public CookerResponseDto deleteCooker(@PathVariable Long cookerId) throws NotFoundCustomException {
     return cookerService.deleteCooker(cookerId);
   }
+
+  @RequestMapping(method = RequestMethod.POST,value = "/{cookerId}/addRecipe")
+  public CookerRecipeResponseDto addRecipe(@PathVariable Long cookerId,@RequestBody List<Long> listRecipeId)  {
+    return cookerService.createCookerAddRecipe(cookerId,listRecipeId);
+  }
+
+  @RequestMapping(method = RequestMethod.GET,value = "/{cookerId}")
+  public CookerRecipeResponseDto getById(@PathVariable Long cookerId) throws NotFoundCustomException {
+    return cookerService.getByIdCookerAddRecipe(cookerId);
+  }
+
+  @RequestMapping(method = RequestMethod.GET)
+  public List<CookerRecipeResponseDto> getAll(){
+    return cookerService.getAllCookerAddRecipe();
+  }
+
 }

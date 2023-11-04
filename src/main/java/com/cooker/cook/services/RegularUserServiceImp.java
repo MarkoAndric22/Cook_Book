@@ -1,16 +1,20 @@
 package com.cooker.cook.services;
 
 import com.cooker.cook.dtos.regularUser.RegularUserCreateRequestDto;
+import com.cooker.cook.dtos.regularUser.RegularUserRecipeResponseDto;
 import com.cooker.cook.dtos.regularUser.RegularUserResponseDto;
 import com.cooker.cook.dtos.regularUser.RegularUserUpdateRequestDto;
+import com.cooker.cook.entities.Recipe;
 import com.cooker.cook.entities.RegularUser;
 import com.cooker.cook.entities.Role;
 import com.cooker.cook.exceptions.NotFoundCustomException;
 import com.cooker.cook.mappers.RegularUserMapper;
+import com.cooker.cook.repositories.RecipeRepository;
 import com.cooker.cook.repositories.RegularUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +25,8 @@ public class RegularUserServiceImp implements RegularUserService{
   RegularUserRepository regularUserRepository;
   @Autowired
   RegularUserMapper regularUserMapper;
+  @Autowired
+  RecipeRepository recipeRepository;
 
 
   @Override
@@ -54,16 +60,30 @@ public class RegularUserServiceImp implements RegularUserService{
   }
 
   @Override
-  public RegularUserResponseDto getByIdUser(Long userId) throws NotFoundCustomException {
-    Optional<RegularUser>optionalRegularUser= regularUserRepository.findById(userId);
-    if (optionalRegularUser.isEmpty()){
-      throw new NotFoundCustomException("User not found");
+  public RegularUserRecipeResponseDto createCookerAddRecipe(Long userId, List<Long> listRecipeId) {
+    RegularUser regularUser=regularUserRepository.findById(userId).get();
+    List<Recipe> recipeList=new ArrayList<>();
+    for (Long id: listRecipeId){
+      Recipe recipe= recipeRepository.findById(id).get();
+      recipeList.add(recipe);
     }
-    return regularUserMapper.toDtoResponse(optionalRegularUser.get());
+    regularUser.setRecipes(recipeList);
+    return regularUserMapper.toDtoResponseUserRecipt(regularUserRepository.save(regularUser));
   }
 
   @Override
-  public List<RegularUserResponseDto> getAllUser() {
-    return regularUserMapper.toDtoListResponse(regularUserRepository.findAll());
+  public RegularUserRecipeResponseDto getByIdCookerAddRecipe(Long userId) throws NotFoundCustomException {
+   Optional<RegularUser> optionalRegularUser=regularUserRepository.findById(userId);
+   if (optionalRegularUser.isEmpty()){
+     throw new NotFoundCustomException("User not found");
+   }
+    return regularUserMapper.toDtoResponseUserRecipt(optionalRegularUser.get());
   }
+
+  @Override
+  public List<RegularUserRecipeResponseDto> getAllCookerAddRecipe() {
+    return regularUserMapper.toDtoResponseListUserRecipt(regularUserRepository.findAll());
+  }
+
+
 }

@@ -1,8 +1,6 @@
 package com.cooker.cook.mappers;
 
-import com.cooker.cook.dtos.cooker.CookerCreateRequestDto;
-import com.cooker.cook.dtos.cooker.CookerResponseDto;
-import com.cooker.cook.dtos.cooker.CookerUpdateRequestDto;
+import com.cooker.cook.dtos.cooker.*;
 import com.cooker.cook.entities.Cooker;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -32,9 +30,16 @@ public interface CookerMapper {
   })
   CookerResponseDto toResponseDto(Cooker cooker);
 
-    @Mapping(target = "id", ignore = true)
+
   List<CookerResponseDto> toResponseListDto(List<Cooker>cookerList);
 
 
   CookerCreateRequestDto toRequestDto(Cooker cooker);
+
+  CookerRecipeResponseDto toResponseCookerRecipeDto(Cooker cooker);
+
+  @Mapping(target = "id", ignore = true)
+  List<CookerRecipeResponseDto> toResponseListCookerRecipeDto(List<Cooker> cookerList);
+
+
 }

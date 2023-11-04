@@ -1,6 +1,7 @@
 package com.cooker.cook.controllers;
 
 import com.cooker.cook.dtos.regularUser.RegularUserCreateRequestDto;
+import com.cooker.cook.dtos.regularUser.RegularUserRecipeResponseDto;
 import com.cooker.cook.dtos.regularUser.RegularUserResponseDto;
 import com.cooker.cook.dtos.regularUser.RegularUserUpdateRequestDto;
 import com.cooker.cook.exceptions.NotFoundCustomException;
@@ -20,28 +21,33 @@ public class RegularUserController {
   @Autowired
   RegularUserService regularUserService;
 
-  @RequestMapping(method = RequestMethod.POST,value = "create")
-  public RegularUserResponseDto createUser(@RequestBody @Valid RegularUserCreateRequestDto regularUserCreateRequestDto){
+  @RequestMapping(method = RequestMethod.POST, value = "create")
+  public RegularUserResponseDto createUser(@RequestBody @Valid RegularUserCreateRequestDto regularUserCreateRequestDto) {
     return regularUserService.createUser(regularUserCreateRequestDto);
   }
 
-  @RequestMapping(method = RequestMethod.PUT,value = "/{userId}")
+  @RequestMapping(method = RequestMethod.PUT, value = "/{userId}")
   public RegularUserResponseDto updateUser(@PathVariable Long userId, @RequestBody @Valid RegularUserUpdateRequestDto regularUserUpdateRequestDto) throws NotFoundCustomException {
-    return regularUserService.updateUser(userId,regularUserUpdateRequestDto);
+    return regularUserService.updateUser(userId, regularUserUpdateRequestDto);
   }
 
-  @RequestMapping(method = RequestMethod.DELETE,value = "/{userId}" )
+  @RequestMapping(method = RequestMethod.DELETE, value = "/{userId}")
   public RegularUserResponseDto deleteUser(@PathVariable Long userId) throws NotFoundCustomException {
     return regularUserService.deleteUser(userId);
   }
 
-  @RequestMapping(method = RequestMethod.GET,value = "/{userId}" )
-  public RegularUserResponseDto getByIdUser(@PathVariable Long userId) throws NotFoundCustomException {
-    return regularUserService.deleteUser(userId);
+  @RequestMapping(method = RequestMethod.POST,value ="/{userId}/addRecipe")
+  public RegularUserRecipeResponseDto addRecipe(@PathVariable Long userId, @RequestBody List<Long> listRecipeId){
+    return regularUserService.createCookerAddRecipe(userId,listRecipeId);
+  }
+
+  @RequestMapping(method = RequestMethod.GET,value = "/{userId}")
+  public RegularUserRecipeResponseDto getById(@PathVariable Long userId) throws NotFoundCustomException {
+    return regularUserService.getByIdCookerAddRecipe(userId);
   }
 
   @RequestMapping(method = RequestMethod.GET)
-  public List<RegularUserResponseDto> getAllUser(){
-    return regularUserService.getAllUser();
+  public List<RegularUserRecipeResponseDto> getAll(){
+    return regularUserService.getAllCookerAddRecipe();
   }
 }
