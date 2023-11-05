@@ -10,10 +10,8 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-
 @Mapper(componentModel = "spring")
 public interface AllergenMapper {
-
 
   @Mappings({
     @Mapping(target = "id", ignore = true),
@@ -31,6 +29,5 @@ public interface AllergenMapper {
     @Mapping(target = "id", ignore = true)
     })
   List<AllergenResponseDto> toResponseDtoList(List<Allergen>allergenList);
-
 
 }

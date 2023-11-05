@@ -1,10 +1,6 @@
 package com.cooker.cook.services;
 
-import com.cooker.cook.dtos.cooker.CookerRecipeResponseDto;
-import com.cooker.cook.dtos.regularUser.RegularUserCreateRequestDto;
-import com.cooker.cook.dtos.regularUser.RegularUserRecipeResponseDto;
-import com.cooker.cook.dtos.regularUser.RegularUserResponseDto;
-import com.cooker.cook.dtos.regularUser.RegularUserUpdateRequestDto;
+import com.cooker.cook.dtos.regularUser.*;
 import com.cooker.cook.exceptions.NotFoundCustomException;
 
 import java.util.List;
@@ -22,4 +18,11 @@ public interface RegularUserService {
   RegularUserRecipeResponseDto getByIdCookerAddRecipe(Long id) throws NotFoundCustomException;
 
   List<RegularUserRecipeResponseDto> getAllCookerAddRecipe();
+
+  RegularUserAllergenResponse createCookerAddAllergen(Long userId,List<Long> listAllergenId);
+
+  RegularUserAllergenResponse getByIdCookerAddAllergen(Long id) throws NotFoundCustomException;
+
+  List<RegularUserAllergenResponse> getAllCookerAddAllergen();
+
 }

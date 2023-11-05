@@ -25,8 +25,6 @@ public class Allergen {
   @Size(min=2,max = 30, message= "Name must be beetwen {min} and {max} characters long.")
   private String name;
 
-
-
   @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
   private List<Ingridient> ingridients;
 

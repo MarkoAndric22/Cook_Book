@@ -53,5 +53,4 @@ public class Recipe {
     inverseJoinColumns = @JoinColumn(name = "ingridient"))
   private List<Ingridient> ingridients;
 
-
 }

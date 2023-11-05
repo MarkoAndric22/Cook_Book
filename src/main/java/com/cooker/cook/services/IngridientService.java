@@ -19,4 +19,5 @@ public interface IngridientService {
   List<IngridientResponseDto> getAllIngridient ();
 
   IngridientResponseDto getByIdIngridient (Long ingridientId) throws NotFoundCustomException;
+
 }

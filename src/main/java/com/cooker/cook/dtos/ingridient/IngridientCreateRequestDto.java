@@ -20,6 +20,5 @@ public record IngridientCreateRequestDto(
 
   List<AllergenCreateRequestDto> allergens
 
-
 ) {
 }

@@ -1,10 +1,5 @@
 package com.cooker.cook.dtos.ingridient;
 
-
-import com.cooker.cook.dtos.allergen.AllergenUpdateRequestDto;
-
-import java.util.List;
-
 public record IngridientUpdateRequestDto(
 
   String name,
@@ -18,5 +13,6 @@ public record IngridientUpdateRequestDto(
   Integer fats,
 
   Integer proteins
+
 ) {
 }

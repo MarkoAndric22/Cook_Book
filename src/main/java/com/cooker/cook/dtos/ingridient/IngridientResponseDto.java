@@ -21,5 +21,6 @@ public record IngridientResponseDto(
   Integer proteins,
 
   List<AllergenResponseDto>allergens
+
 ) {
 }

@@ -19,5 +19,4 @@ public interface CookerService {
 
   List<CookerRecipeResponseDto> getAllCookerAddRecipe();
 
-
 }

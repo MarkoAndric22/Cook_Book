@@ -13,5 +13,6 @@ public record IngridientupdateResponse(
   Integer fats,
 
   Integer protein
+
 ) {
 }

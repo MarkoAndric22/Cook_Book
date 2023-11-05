@@ -45,4 +45,10 @@ public class RecipeController {
   public List<RecipeResponseDto> getAllRecipe(){
     return recipeService.getAllRecipe();
   }
+
+  @RequestMapping(method = RequestMethod.GET,value = "getKcalPer100g/{recipeId}")
+  public double kcalPer100g(@PathVariable Long recipeId){
+    return recipeService.calculateNutritionalValuePer100g(recipeId);
+  }
+
 }

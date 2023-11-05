@@ -9,5 +9,6 @@ public record RegularUserUpdateRequestDto(
   String username,
 
   String password
+
 ) {
 }

@@ -44,7 +44,6 @@ public class RegularUser {
 
   Role role;
 
-
   @ManyToMany(cascade = CascadeType.MERGE)
   @JoinTable(name = "regularUser_recipe",
     joinColumns = @JoinColumn(name = "user"),
@@ -58,4 +57,5 @@ public class RegularUser {
     inverseJoinColumns = @JoinColumn(name = "allergen")
   )
   private List<Allergen> allergens;
+
 }

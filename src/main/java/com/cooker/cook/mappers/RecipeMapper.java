@@ -28,4 +28,5 @@ public interface RecipeMapper {
   RecipeUpdateResponseDto toUpdateResponseDto(Recipe recipe);
 
   List<RecipeResponseDto> toListResponseDto(List<Recipe> recipeList);
+
 }

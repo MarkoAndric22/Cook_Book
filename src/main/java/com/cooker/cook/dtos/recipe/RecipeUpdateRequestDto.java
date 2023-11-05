@@ -7,10 +7,16 @@ import java.util.List;
 public record RecipeUpdateRequestDto(
 
   String name,
+
   String description,
+
   String stepsForPrepare,
+
   Integer timeForPrepare,
+
   Integer quantity,
+
   List<IngridientCreateRequestDto> ingridients
+
 ) {
 }

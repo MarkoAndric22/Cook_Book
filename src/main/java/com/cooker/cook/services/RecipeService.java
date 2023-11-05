@@ -19,4 +19,7 @@ public interface RecipeService {
   RecipeResponseDto getByRecipeId(Long recipeId) throws NotFoundCustomException;
 
   List<RecipeResponseDto> getAllRecipe();
+
+  public double calculateNutritionalValuePer100g(Long recipeId);
+
 }

@@ -11,5 +11,6 @@ public record RegularUserResponseDto(
   String username,
 
   String password
+
 ) {
 }

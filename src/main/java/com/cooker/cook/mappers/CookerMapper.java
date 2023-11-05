@@ -12,7 +12,6 @@ import java.util.List;
 uses = RecipeMapper.class)
 public interface CookerMapper {
 
-
   @Mappings({
     @Mapping(target = "id", ignore = true),
     @Mapping(target = "role",ignore = true)
@@ -30,9 +29,7 @@ public interface CookerMapper {
   })
   CookerResponseDto toResponseDto(Cooker cooker);
 
-
   List<CookerResponseDto> toResponseListDto(List<Cooker>cookerList);
-
 
   CookerCreateRequestDto toRequestDto(Cooker cooker);
 
@@ -40,6 +37,5 @@ public interface CookerMapper {
 
   @Mapping(target = "id", ignore = true)
   List<CookerRecipeResponseDto> toResponseListCookerRecipeDto(List<Cooker> cookerList);
-
 
 }

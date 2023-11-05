@@ -1,7 +1,6 @@
 package com.cooker.cook.dtos.cooker;
 
 import com.cooker.cook.dtos.recipe.RecipeResponseDto;
-import com.cooker.cook.entities.Recipe;
 
 import java.util.List;
 
@@ -18,5 +17,6 @@ public record CookerRecipeResponseDto(
   String password,
 
   List<RecipeResponseDto> recipes
+
 ) {
 }

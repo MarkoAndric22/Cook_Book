@@ -8,5 +8,6 @@ public record RegularUserCreateRequestDto(
   String username,
 
   String password
+
 ) {
 }

@@ -10,6 +10,5 @@ public record AllergenUpdateRequestDto(
 
   List<IngridientUpdateRequestDto> ingridients
 
-
 ) {
 }

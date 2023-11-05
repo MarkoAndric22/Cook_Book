@@ -35,10 +35,12 @@ public class GlobalExceptionController {
   public ResponseEntity<Map<String, List<String>>> handleAuthorizationCustomException(AuthorizationCustomException ex) {
     return new ResponseEntity<>(getErrorsMap(ex.getMessage()), new HttpHeaders(), HttpStatus.UNAUTHORIZED);
   }
+
   @ExceptionHandler(BadRequestCustomException.class)
   public ResponseEntity<Map<String, List<String>>> handleBadRequestCustomException(BadRequestCustomException ex) {
     return new ResponseEntity<>(getErrorsMap(ex.getMessage()), new HttpHeaders(), HttpStatus.BAD_REQUEST);
   }
+
   @ExceptionHandler(NotFoundCustomException.class)
   public ResponseEntity<Map<String, List<String>>> notFoundCustomException(NotFoundCustomException ex) {
     return new ResponseEntity<>(getErrorsMap(ex.getMessage()), new HttpHeaders(), HttpStatus.NOT_FOUND);

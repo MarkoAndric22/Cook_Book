@@ -1,10 +1,7 @@
 package com.cooker.cook.mappers;
 
 
-import com.cooker.cook.dtos.regularUser.RegularUserCreateRequestDto;
-import com.cooker.cook.dtos.regularUser.RegularUserRecipeResponseDto;
-import com.cooker.cook.dtos.regularUser.RegularUserResponseDto;
-import com.cooker.cook.dtos.regularUser.RegularUserUpdateRequestDto;
+import com.cooker.cook.dtos.regularUser.*;
 import com.cooker.cook.entities.RegularUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -36,4 +33,9 @@ public interface RegularUserMapper {
   RegularUserRecipeResponseDto toDtoResponseUserRecipt(RegularUser regularUser);
 
   List<RegularUserRecipeResponseDto> toDtoResponseListUserRecipt(List<RegularUser> regularUserList);
+
+  RegularUserAllergenResponse toDtoResponseUserAllergen(RegularUser regularUser);
+
+  List<RegularUserAllergenResponse> toDtoResponseListUserAllergen(List<RegularUser> regularUserList);
+
 }

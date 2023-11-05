@@ -35,6 +35,7 @@ public class IngridientController {
   public IngridientResponseDto deleteIngridient(@PathVariable Long ingridientId) throws NotFoundCustomException {
     return ingridientService.deleteIngridient(ingridientId);
   }
+
   @RequestMapping(method = RequestMethod.GET)
   public List<IngridientResponseDto> getAllIngridient(){
     return ingridientService.getAllIngridient();
@@ -44,4 +45,5 @@ public class IngridientController {
   public IngridientResponseDto IngridientResponseDto(@PathVariable Long ingridientId) throws NotFoundCustomException {
     return ingridientService.getByIdIngridient(ingridientId);
   }
+
 }

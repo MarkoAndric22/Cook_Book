@@ -1,9 +1,6 @@
 package com.cooker.cook.controllers;
 
-import com.cooker.cook.dtos.regularUser.RegularUserCreateRequestDto;
-import com.cooker.cook.dtos.regularUser.RegularUserRecipeResponseDto;
-import com.cooker.cook.dtos.regularUser.RegularUserResponseDto;
-import com.cooker.cook.dtos.regularUser.RegularUserUpdateRequestDto;
+import com.cooker.cook.dtos.regularUser.*;
 import com.cooker.cook.exceptions.NotFoundCustomException;
 import com.cooker.cook.services.RegularUserService;
 import jakarta.validation.Valid;
@@ -50,4 +47,19 @@ public class RegularUserController {
   public List<RegularUserRecipeResponseDto> getAll(){
     return regularUserService.getAllCookerAddRecipe();
   }
+  @RequestMapping(method = RequestMethod.POST,value = "/{userId}/addAllergen")
+  public RegularUserAllergenResponse addAllergen(@PathVariable Long userId, @RequestBody List<Long> listAllergenId){
+    return regularUserService.createCookerAddAllergen(userId,listAllergenId);
+  }
+
+  @RequestMapping(method = RequestMethod.GET,value = "{id}/getById")
+  public RegularUserAllergenResponse getByIdAllergen(@PathVariable Long id) throws NotFoundCustomException {
+    return regularUserService.getByIdCookerAddAllergen(id);
+  }
+
+  @RequestMapping(method = RequestMethod.GET,value = "getAll")
+  public List<RegularUserAllergenResponse> getAllUserAllergen(){
+    return regularUserService.getAllCookerAddAllergen();
+  }
+
 }

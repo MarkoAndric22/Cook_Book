@@ -1,14 +1,13 @@
 package com.cooker.cook.services;
 
-import com.cooker.cook.dtos.regularUser.RegularUserCreateRequestDto;
-import com.cooker.cook.dtos.regularUser.RegularUserRecipeResponseDto;
-import com.cooker.cook.dtos.regularUser.RegularUserResponseDto;
-import com.cooker.cook.dtos.regularUser.RegularUserUpdateRequestDto;
+import com.cooker.cook.dtos.regularUser.*;
+import com.cooker.cook.entities.Allergen;
 import com.cooker.cook.entities.Recipe;
 import com.cooker.cook.entities.RegularUser;
 import com.cooker.cook.entities.Role;
 import com.cooker.cook.exceptions.NotFoundCustomException;
 import com.cooker.cook.mappers.RegularUserMapper;
+import com.cooker.cook.repositories.AllergenRepository;
 import com.cooker.cook.repositories.RecipeRepository;
 import com.cooker.cook.repositories.RegularUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,8 @@ public class RegularUserServiceImp implements RegularUserService{
   RegularUserMapper regularUserMapper;
   @Autowired
   RecipeRepository recipeRepository;
-
+  @Autowired
+  AllergenRepository allergenRepository;
 
   @Override
   public RegularUserResponseDto createUser(RegularUserCreateRequestDto regularUserCreateRequestDto) {
@@ -85,5 +85,30 @@ public class RegularUserServiceImp implements RegularUserService{
     return regularUserMapper.toDtoResponseListUserRecipt(regularUserRepository.findAll());
   }
 
+  @Override
+  public RegularUserAllergenResponse createCookerAddAllergen(Long userId, List<Long> listAllergenId) {
+    RegularUser regularUser=regularUserRepository.findById(userId).get();
+    List<Allergen> allergenList=new ArrayList<>();
+    for (Long id: listAllergenId){
+      Allergen allergen= allergenRepository.findById(id).get();
+      allergenList.add(allergen);
+    }
+    regularUser.setAllergens(allergenList);
+    return regularUserMapper.toDtoResponseUserAllergen(regularUserRepository.save(regularUser));
+  }
+
+  @Override
+  public RegularUserAllergenResponse getByIdCookerAddAllergen(Long id) throws NotFoundCustomException {
+    Optional<RegularUser> optionalRegularUser=regularUserRepository.findById(id);
+    if (optionalRegularUser.isEmpty()){
+      throw new NotFoundCustomException("User not found");
+    }
+    return regularUserMapper.toDtoResponseUserAllergen(optionalRegularUser.get());
+  }
+
+  @Override
+  public List<RegularUserAllergenResponse> getAllCookerAddAllergen() {
+    return regularUserMapper.toDtoResponseListUserAllergen(regularUserRepository.findAll());
+  }
 
 }

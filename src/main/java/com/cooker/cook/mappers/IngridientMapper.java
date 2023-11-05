@@ -19,15 +19,14 @@ public interface IngridientMapper {
 
   @Mappings({
     @Mapping(target = "id", ignore = true)
-
   })
   Ingridient toEntityUpdate(IngridientUpdateRequestDto ingridientUpdateRequestDTO);
 
   @Mapping(target = "id", ignore = true)
   IngridientResponseDto toResponseDto(Ingridient ingridient);
 
-
   IngridientupdateResponse toUpdateResponse(Ingridient ingridient);
 
   List<IngridientResponseDto> toResponseListDto(List<Ingridient> ingridientList);
+
 }

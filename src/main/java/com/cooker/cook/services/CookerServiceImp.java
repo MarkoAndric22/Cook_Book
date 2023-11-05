@@ -33,8 +33,6 @@ public class CookerServiceImp implements CookerService{
     return cookerMapper.toResponseDto(cooker);
   }
 
-
-
   @Override
   public CookerResponseDto updateCooker(Long cookerId, CookerUpdateRequestDto cookerUpdateRequestDto) throws NotFoundCustomException {
     Optional<Cooker>optionalCooker=cookerRepository.findById(cookerId);
